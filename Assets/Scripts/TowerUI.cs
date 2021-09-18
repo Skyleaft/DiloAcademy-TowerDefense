@@ -8,6 +8,15 @@ public class TowerUI : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragH
 
     private Tower _towerPrefab;
     private Tower _currentSpawnedTower;
+    Vector2 currentSize;
+    RectTransform rectTransform;
+
+
+
+    void Start()
+    {
+        rectTransform = GetComponent<RectTransform>();
+    }
 
     public void SetTowerPrefab (Tower tower)
     {
@@ -22,12 +31,27 @@ public class TowerUI : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragH
         GameObject newTowerObj = Instantiate (_towerPrefab.gameObject);
         _currentSpawnedTower = newTowerObj.GetComponent<Tower> ();
         _currentSpawnedTower.ToggleOrderInLayer (true);
+        shrink();
+    }
+
+    private void shrink()
+    {
+        currentSize = rectTransform.sizeDelta;
+        this.gameObject.transform.localScale = Vector3.zero;
+        rectTransform.sizeDelta = Vector2.zero;
+    }
+
+    private void Unshrink()
+    {
+        this.gameObject.transform.localScale = Vector3.one;
+        rectTransform.sizeDelta = currentSize;
     }
 
     // Implementasi dari Interface IDragHandler
     // Fungsi ini terpanggil selama men-drag UI
     public void OnDrag (PointerEventData eventData)
     {
+
         Camera mainCamera = Camera.main;
         Vector3 mousePosition = Input.mousePosition;
         mousePosition.z = -mainCamera.transform.position.z;
@@ -43,13 +67,25 @@ public class TowerUI : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragH
         if (_currentSpawnedTower.PlacePosition == null)
         {
             Destroy (_currentSpawnedTower.gameObject);
+            Unshrink();
+        }
+        else if (TowerPlacement.Instance.toDelete)
+        {
+            TowerPlacement.Instance.toDelete = false;
+            Destroy(_currentSpawnedTower.gameObject);
+            LevelManager.Instance.removeUITower(this);
+
+            Destroy(this.gameObject);
         }
         else
         {
             _currentSpawnedTower.LockPlacement ();
             _currentSpawnedTower.ToggleOrderInLayer (false);
             LevelManager.Instance.RegisterSpawnedTower (_currentSpawnedTower);
+            LevelManager.Instance.removeUITower(this);
             _currentSpawnedTower = null;
+
+            Destroy(this.gameObject);
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class Tower : MonoBehaviour
 {
@@ -9,6 +10,7 @@ public class Tower : MonoBehaviour
 
     // Tower Properties
     [SerializeField] private int _shootPower = 1;
+    [SerializeField] private int _maxShoot = 6;
     [SerializeField] private float _shootDistance = 1f;
     [SerializeField] private float _shootDelay = 5f;
     [SerializeField] private float _bulletSpeed = 1f;
@@ -16,11 +18,25 @@ public class Tower : MonoBehaviour
 
     [SerializeField] private Bullet _bulletPrefab;
 
+    public int _countShoot;
     private float _runningShootDelay;
     private Enemy _targetEnemy;
     private Quaternion _targetRotation;
 
     public Vector2? PlacePosition { get; private set; }
+    public TowerPlacement TowerPos { get; private set; }
+
+
+    void Update()
+    {
+        if(_countShoot >= _maxShoot)
+        {
+            LevelManager.Instance.RemoveTower(this);
+            TowerPos.isAvailable = false;
+            Destroy(this.gameObject);
+        }
+    }
+
 
     // Mengecek musuh terdekat
     public void CheckNearestEnemy (List<Enemy> enemies)
@@ -43,6 +59,7 @@ public class Tower : MonoBehaviour
         foreach (Enemy enemy in enemies)
         {
             float distance = Vector3.Distance (transform.position, enemy.transform.position);
+
             if (distance > _shootDistance)
             {
                 continue;
@@ -80,6 +97,7 @@ public class Tower : MonoBehaviour
             bullet.SetProperties (_shootPower, _bulletSpeed, _bulletSplashRadius);
             bullet.SetTargetEnemy (_targetEnemy);
             bullet.gameObject.SetActive (true);
+            _countShoot++;
 
             _runningShootDelay = _shootDelay;
         }
@@ -103,6 +121,11 @@ public class Tower : MonoBehaviour
     public void SetPlacePosition (Vector2? newPosition)
     {
         PlacePosition = newPosition;
+    }
+
+    public void SetTowerPos(TowerPlacement towerPlacement)
+    {
+        TowerPos = towerPlacement;
     }
 
     public void LockPlacement ()

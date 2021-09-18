@@ -2,20 +2,51 @@
 
 public class TowerPlacement : MonoBehaviour
 {
-    private Tower _placedTower;
+    public Tower _placedTower;
+    [SerializeField]private bool isRecyle;
+    public bool toDelete;
+    public bool isAvailable;
+
+    // Fungsi Singleton
+    private static TowerPlacement _instance = null;
+    public static TowerPlacement Instance
+    {
+        get
+        {
+            if (_instance == null)
+            {
+                _instance = FindObjectOfType<TowerPlacement>();
+            }
+            return _instance;
+        }
+    }
 
     // Fungsi yang terpanggil sekali ketika ada object Rigidbody yang menyentuh area collider
     private void OnTriggerEnter2D (Collider2D collision)
     {
+        if (isRecyle)
+        {
+            Tower towa = collision.GetComponent<Tower>();
+            if (towa != null)
+            {
+                towa.SetPlacePosition(transform.position);
+                _placedTower = towa;
+                toDelete = true;
+            }
+            return;
+        }
         if (_placedTower != null)
         {
             return;
         }
 
+
         Tower tower = collision.GetComponent<Tower> ();
-        if (tower != null)
+        if (tower != null & !isAvailable)
         {
             tower.SetPlacePosition (transform.position);
+            tower.SetTowerPos(this);
+            isAvailable = true;
             _placedTower = tower;
         }
     }
@@ -30,5 +61,6 @@ public class TowerPlacement : MonoBehaviour
 
         _placedTower.SetPlacePosition (null);
         _placedTower = null;
+        toDelete = false;
     }
 }

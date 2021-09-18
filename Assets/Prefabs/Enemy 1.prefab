@@ -83,11 +83,43 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3133808424608741034, guid: 11f3f192aaa149d47956776caf651bcc,
+        type: 3}
+      propertyPath: _maxHealth
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 3133808424608741034, guid: 11f3f192aaa149d47956776caf651bcc,
+        type: 3}
+      propertyPath: _moveSpeed
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3133808424608741034, guid: 11f3f192aaa149d47956776caf651bcc,
+        type: 3}
+      propertyPath: _healthBar
+      value: 
+      objectReference: {fileID: 3996309006367607468}
+    - target: {fileID: 3133808424608741034, guid: 11f3f192aaa149d47956776caf651bcc,
+        type: 3}
+      propertyPath: _healthFill
+      value: 
+      objectReference: {fileID: 6372710113259785496}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 11f3f192aaa149d47956776caf651bcc, type: 3}
 --- !u!1 &3527116329132025063 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7059400765906497754, guid: 11f3f192aaa149d47956776caf651bcc,
+    type: 3}
+  m_PrefabInstance: {fileID: 5839710785850233917}
+  m_PrefabAsset: {fileID: 0}
+--- !u!212 &3996309006367607468 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 7385744901182496401, guid: 11f3f192aaa149d47956776caf651bcc,
+    type: 3}
+  m_PrefabInstance: {fileID: 5839710785850233917}
+  m_PrefabAsset: {fileID: 0}
+--- !u!212 &6372710113259785496 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 683060674388908325, guid: 11f3f192aaa149d47956776caf651bcc,
     type: 3}
   m_PrefabInstance: {fileID: 5839710785850233917}
   m_PrefabAsset: {fileID: 0}

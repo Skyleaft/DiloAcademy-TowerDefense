@@ -7,7 +7,7 @@ public class Enemy : MonoBehaviour
     [SerializeField] private SpriteRenderer _healthBar;
     [SerializeField] private SpriteRenderer _healthFill;
 
-    private int _currentHealth;
+    public int _currentHealth { get; private set; }
 
     public Vector3 TargetPosition { get; private set; }
     public int CurrentPathIndex { get; private set; }

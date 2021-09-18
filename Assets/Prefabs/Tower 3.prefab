@@ -83,6 +83,26 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1788340213362043784, guid: 22bdccc1e7f9dc3498e1da9774c4703f,
         type: 3}
+    - target: {fileID: 6677935670499804649, guid: d422024421f754f43b8593fea95e5f8a,
+        type: 3}
+      propertyPath: _shootPower
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 6677935670499804649, guid: d422024421f754f43b8593fea95e5f8a,
+        type: 3}
+      propertyPath: _bulletSplashRadius
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6677935670499804649, guid: d422024421f754f43b8593fea95e5f8a,
+        type: 3}
+      propertyPath: _bulletSpeed
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6677935670499804649, guid: d422024421f754f43b8593fea95e5f8a,
+        type: 3}
+      propertyPath: _maxShoot
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 6677935669568383139, guid: d422024421f754f43b8593fea95e5f8a,
         type: 3}
       propertyPath: m_Sprite

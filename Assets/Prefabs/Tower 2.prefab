@@ -77,6 +77,31 @@ PrefabInstance:
       propertyPath: _towerHead
       value: 
       objectReference: {fileID: 6624372611810090510}
+    - target: {fileID: 6677935670499804649, guid: d422024421f754f43b8593fea95e5f8a,
+        type: 3}
+      propertyPath: _shootPower
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 6677935670499804649, guid: d422024421f754f43b8593fea95e5f8a,
+        type: 3}
+      propertyPath: _bulletSpeed
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 6677935670499804649, guid: d422024421f754f43b8593fea95e5f8a,
+        type: 3}
+      propertyPath: _shootDelay
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6677935670499804649, guid: d422024421f754f43b8593fea95e5f8a,
+        type: 3}
+      propertyPath: _bulletSplashRadius
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6677935670499804649, guid: d422024421f754f43b8593fea95e5f8a,
+        type: 3}
+      propertyPath: _maxShoot
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 6677935669568383139, guid: d422024421f754f43b8593fea95e5f8a,
         type: 3}
       propertyPath: m_Sprite

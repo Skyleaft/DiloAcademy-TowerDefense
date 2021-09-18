@@ -30,6 +30,8 @@ public class LevelManager : MonoBehaviour
 
     [SerializeField] private Transform _towerUIParent;
     [SerializeField] private GameObject _towerUIPrefab;
+    [SerializeField] private int _TowerUIMax;
+    [SerializeField] private float _UispawnDelay = 4f;
 
     [SerializeField] private Tower[] _towerPrefabs;
     [SerializeField] private Enemy[] _enemyPrefabs;
@@ -40,10 +42,16 @@ public class LevelManager : MonoBehaviour
     private List<Tower> _spawnedTowers = new List<Tower> ();
     private List<Enemy> _spawnedEnemies = new List<Enemy> ();
     private List<Bullet> _spawnedBullets = new List<Bullet> ();
+    public List<TowerUI> _spawnedUITower = new List<TowerUI>();
 
     private int _currentLives;
     private int _enemyCounter;
     private float _runningSpawnDelay;
+    private float _runningUISpawnDelay;
+
+    public int randomNumber;
+    public int pity;
+
 
     public bool IsOver { get; private set; }
 
@@ -52,7 +60,7 @@ public class LevelManager : MonoBehaviour
         SetCurrentLives (_maxLives);
         SetTotalEnemy (_totalEnemy);
 
-        InstantiateAllTowerUI ();
+        //InstantiateAllTowerUI ();
     }
 
     private void Update ()
@@ -76,6 +84,17 @@ public class LevelManager : MonoBehaviour
         {
             SpawnEnemy ();
             _runningSpawnDelay = _spawnDelay;
+        }
+
+        _runningUISpawnDelay -= Time.unscaledDeltaTime;
+        if (_runningUISpawnDelay <= 0f)
+        {
+            if (_spawnedUITower.Count < _TowerUIMax)
+            {
+                SpawnUITower();
+                _runningUISpawnDelay = _UispawnDelay;
+            }
+
         }
 
         foreach (Tower tower in _spawnedTowers)
@@ -126,9 +145,57 @@ public class LevelManager : MonoBehaviour
         }
     }
 
+    //simple gacha method
+    private int LootTable()
+    {
+        randomNumber = Random.Range(pity, 50);
+        if (randomNumber < 10)
+        {
+            pity += 10;
+            return 2;
+
+        }
+        else if(randomNumber < 30)
+        {
+            pity += 10;
+            return 1;
+
+        }
+        else if(pity > 50)
+        {
+            pity = 0;
+            return 2;
+        }
+        else
+        {
+            pity += 10;
+            return 0;
+        }
+    }
+
+    private void SpawnUITower()
+    {
+
+        GameObject newTowerUIObj = Instantiate(_towerUIPrefab.gameObject, _towerUIParent);
+        TowerUI newTowerUI = newTowerUIObj.GetComponent<TowerUI>();
+        newTowerUI.SetTowerPrefab(_towerPrefabs[LootTable()]);
+        newTowerUI.transform.name = _towerPrefabs[LootTable()].name;
+        _spawnedUITower.Add(newTowerUI);
+    }
+
+    public void removeUITower(TowerUI _towerUI)
+    {
+        _spawnedUITower.Remove(_towerUI);
+    }
+
     public void RegisterSpawnedTower (Tower tower)
     {
         _spawnedTowers.Add (tower);
+    }
+
+    public void RemoveTower(Tower tower)
+    {
+        _spawnedTowers.Remove(tower);
     }
 
     private void SpawnEnemy ()
