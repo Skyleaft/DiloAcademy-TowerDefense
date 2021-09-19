@@ -27,14 +27,19 @@ public class Tower : MonoBehaviour
     public TowerPlacement TowerPos { get; private set; }
 
 
-    void Update()
+    public int getMaxShot()
     {
-        if(_countShoot >= _maxShoot)
-        {
-            LevelManager.Instance.RemoveTower(this);
-            TowerPos.isAvailable = false;
-            Destroy(this.gameObject);
-        }
+        return _maxShoot;
+    }
+
+    public void setTargetEnemy()
+    {
+        _targetEnemy = null;
+    }
+
+    public void setTowerPos()
+    {
+        TowerPos.isAvailable = false;
     }
 
 

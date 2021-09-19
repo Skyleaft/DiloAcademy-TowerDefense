@@ -59,8 +59,8 @@ public class TowerPlacement : MonoBehaviour
             return;
         }
 
-        _placedTower.SetPlacePosition (null);
-        _placedTower = null;
+        //_placedTower.SetPlacePosition (null);
+        //_placedTower = null;
         toDelete = false;
     }
 }

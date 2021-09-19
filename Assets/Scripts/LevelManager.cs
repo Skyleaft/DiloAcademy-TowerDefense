@@ -99,9 +99,19 @@ public class LevelManager : MonoBehaviour
 
         foreach (Tower tower in _spawnedTowers)
         {
-            tower.CheckNearestEnemy (_spawnedEnemies);
-            tower.SeekTarget ();
-            tower.ShootTarget ();
+            if(tower._countShoot < tower.getMaxShot())
+            {
+                tower.CheckNearestEnemy(_spawnedEnemies);
+                tower.SeekTarget();
+                tower.ShootTarget();
+            }
+            else
+            {
+                LevelManager.Instance.RemoveTower(tower);
+                tower.setTargetEnemy();
+                tower.setTowerPos();
+                Destroy(tower.gameObject);
+            }
         }
 
         foreach (Enemy enemy in _spawnedEnemies)
@@ -175,7 +185,6 @@ public class LevelManager : MonoBehaviour
 
     private void SpawnUITower()
     {
-
         GameObject newTowerUIObj = Instantiate(_towerUIPrefab.gameObject, _towerUIParent);
         TowerUI newTowerUI = newTowerUIObj.GetComponent<TowerUI>();
         newTowerUI.SetTowerPrefab(_towerPrefabs[LootTable()]);
