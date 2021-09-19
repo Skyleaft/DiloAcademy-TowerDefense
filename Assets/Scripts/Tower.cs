@@ -18,7 +18,7 @@ public class Tower : MonoBehaviour
 
     [SerializeField] private Bullet _bulletPrefab;
 
-    public int _countShoot;
+    public int _countShoot=0;
     private float _runningShootDelay;
     private Enemy _targetEnemy;
     private Quaternion _targetRotation;

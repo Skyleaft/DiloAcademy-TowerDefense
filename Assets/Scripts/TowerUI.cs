@@ -69,23 +69,24 @@ public class TowerUI : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragH
             Destroy (_currentSpawnedTower.gameObject);
             Unshrink();
         }
-        else if (TowerPlacement.Instance.toDelete)
+        else if (TowerPlacement.toDelete)
         {
-            TowerPlacement.Instance.toDelete = false;
             Destroy(_currentSpawnedTower.gameObject);
             LevelManager.Instance.removeUITower(this);
-
+            TowerPlacement.toDelete = false;
             Destroy(this.gameObject);
         }
         else
         {
-            _currentSpawnedTower.LockPlacement ();
-            _currentSpawnedTower.ToggleOrderInLayer (false);
-            LevelManager.Instance.RegisterSpawnedTower (_currentSpawnedTower);
+            _currentSpawnedTower.LockPlacement();
+            _currentSpawnedTower.ToggleOrderInLayer(false);
+            LevelManager.Instance.RegisterSpawnedTower(_currentSpawnedTower);
             LevelManager.Instance.removeUITower(this);
             _currentSpawnedTower = null;
 
             Destroy(this.gameObject);
         }
+
+
     }
 }

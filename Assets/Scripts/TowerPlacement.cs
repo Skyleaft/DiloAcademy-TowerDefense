@@ -4,7 +4,7 @@ public class TowerPlacement : MonoBehaviour
 {
     public Tower _placedTower;
     [SerializeField]private bool isRecyle;
-    public bool toDelete;
+    public static bool toDelete;
     public bool isAvailable;
 
     // Fungsi Singleton
@@ -58,9 +58,7 @@ public class TowerPlacement : MonoBehaviour
         {
             return;
         }
-
-        //_placedTower.SetPlacePosition (null);
-        //_placedTower = null;
-        toDelete = false;
+        _placedTower.SetPlacePosition(null);
+        _placedTower = null;
     }
 }
